@@ -23,7 +23,7 @@ function App() {
           {
             showEmployee 
             ?
-            <SingleEmployee />
+            <SingleEmployee selectEmployee={showEmployee}/>
             : 
             <Employeers employeers={employee} filter={selectDepartament}/>
           }

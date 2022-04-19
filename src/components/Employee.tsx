@@ -3,7 +3,7 @@ import { Button, CloseButton, Col, FormControl, InputGroup, ListGroup, Nav } fro
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../hooks/redux";
 import { IEmpoyee } from "../models/IEmpoyee";
-import { cancelEditEmployee, editEmployee, removeEmployee, updateEmployee } from "../store/reducers/EmployeeSlice";
+import { cancelEditEmployee, editEmployee, removeEmployee, showEmployee, updateEmployee } from "../store/reducers/EmployeeSlice";
 
 interface IEmployee {
     employee: IEmpoyee
@@ -22,22 +22,26 @@ const Employee: FC<IEmployee> = ({employee}) => {
 
     const dispatch = useDispatch()
 
-    const remove = () => {
+    const remove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
         dispatch(removeEmployee(employee.id))
     }
 
-    const edit = () => {
+    const edit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
         dispatch(editEmployee(employee.id))
     }
 
     const save = () => {
-        console.log(value)
         dispatch(updateEmployee(value))
     }
 
     const cancelEdit = () => {
-        console.log(employee)
         dispatch(cancelEditEmployee())
+    }
+
+    const singleEmployee = () => {
+        dispatch(showEmployee(employee))
     }
 
     if(editingEmployee && editingEmployee === employee.id){
@@ -91,12 +95,13 @@ const Employee: FC<IEmployee> = ({employee}) => {
                     </div>
                 </div>
                 
-                <CloseButton onClick={remove} className="mt-2 close"/>
+                <CloseButton onClick={(e) => remove(e)} className="mt-2 close"/>
             </ListGroup.Item>
     }
 
     return <ListGroup.Item
                 action 
+                onClick={singleEmployee}
                 key={employee.id}
                 as="li"
                 variant="light"
@@ -110,12 +115,12 @@ const Employee: FC<IEmployee> = ({employee}) => {
                     <Button 
                         variant="secondary" 
                         className="edit"
-                        onClick={edit}
+                        onClick={(e) => edit(e)}
                     >
                         Редактировать
                     </Button>
                 </div>
-                <CloseButton onClick={remove} className="mt-2 close"/>
+                <CloseButton onClick={(e) =>remove(e)} className="mt-2 close"/>
             </ListGroup.Item>
 }
 

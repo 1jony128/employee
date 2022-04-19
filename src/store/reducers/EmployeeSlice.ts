@@ -10,7 +10,7 @@ interface IEmployeeSlice {
     editingEmployee: string | null;
     editingDepartament: number | null;
     selectDepartament: number;
-    showEmployee: boolean
+    showEmployee: IEmpoyee | null;
 }
 
 const initialState : IEmployeeSlice = {
@@ -62,7 +62,7 @@ const initialState : IEmployeeSlice = {
     editingEmployee: null,
     editingDepartament: null,
     selectDepartament: 0,
-    showEmployee: false
+    showEmployee: null
 }
 
 
@@ -149,7 +149,10 @@ export const EmployeeSlice = createSlice({
         },
         selectDepartment(state, action: PayloadAction<number>){
             state.selectDepartament = action.payload
-        }
+        },
+        showEmployee(state, action: PayloadAction<IEmpoyee | null>){
+            state.showEmployee = action.payload
+        },
 
     }
 })
@@ -170,7 +173,8 @@ export const {
     cancelEditDepartments,
     updateDepartments,
     updateDepartmentsSuccess,
-    selectDepartment
+    selectDepartment,
+    showEmployee
 } = EmployeeSlice.actions
 
 export default EmployeeSlice.reducer;
