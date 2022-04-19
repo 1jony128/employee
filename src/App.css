@@ -9,3 +9,23 @@
 .departaments{
   border-right: 1px solid rgb(207, 207, 207);
 }
+
+.employeers li{
+  cursor: pointer;
+}
+
+.edit{
+  display: none !important;
+  font-size: 12px !important;
+}
+.close{
+  display: none !important;
+}
+
+.employeers li:hover .edit{
+  display: inline-block !important;
+}
+
+.employeers li:hover .close{
+  display: inline-block !important;
+}

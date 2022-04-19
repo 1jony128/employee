@@ -23,7 +23,7 @@ function App() {
             <Departaments departaments={departaments}/>
           </ Route>
           <Route path="/employee">
-          <Employeers employeers={employee}/>
+            <Employeers employeers={employee}/>
           </Route>
           
         </BrowserRouter>

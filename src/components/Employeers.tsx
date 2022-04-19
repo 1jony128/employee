@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { Col, Nav } from "react-bootstrap";
+import { Col, ListGroup, Nav } from "react-bootstrap";
 import { IEmpoyee } from "../models/IEmpoyee";
 import Departament from "./Departament";
+import Employee from "./Employee";
 
 
 interface IEmployeers {
@@ -13,13 +14,13 @@ const Employeers: FC<IEmployeers> = ({employeers}) => {
     console.log(employeers)
     return (  
         <Col className='employeers'>
-            <Nav variant="pills" className="flex-column">
+            <ListGroup as="ol" numbered>
                 {
                     employeers && employeers.map(item => {
-                    return <div key={item.id}>{item.firstName}</div>
+                    return <Employee employee={item}/>
                     })
                 }   
-            </Nav>
+            </ListGroup>
             
         </Col>
     );
