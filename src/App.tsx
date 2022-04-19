@@ -5,11 +5,12 @@ import { Col, Container, Row, ThemeProvider } from 'react-bootstrap';
 import Departaments from './components/Departaments';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Employeers from './components/Employeers';
+import SingleEmployee from './components/SingleEmloyee';
 
 
 function App() {
 
-  const {departaments, employee} = useAppSelector(state => state.EmployeeReducer)
+  const {departaments, employee, showEmployee, selectDepartament} = useAppSelector(state => state.EmployeeReducer)
 
   return(
     
@@ -18,15 +19,15 @@ function App() {
     >
       <Container>
         <Row>
-        <BrowserRouter>
-          <Route path='/'>
-            <Departaments departaments={departaments}/>
-          </ Route>
-          <Route path="/employee">
-            <Employeers employeers={employee}/>
-          </Route>
-          
-        </BrowserRouter>
+          <Departaments departaments={departaments}/>
+          {
+            showEmployee 
+            ?
+            <SingleEmployee />
+            : 
+            <Employeers employeers={employee} filter={selectDepartament}/>
+          }
+
         </Row>
       </Container>
       

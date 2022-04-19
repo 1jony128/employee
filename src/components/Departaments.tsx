@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Col, Nav } from "react-bootstrap";
 import { IDepartment } from "../models/IDepartament";
+import AddDepartament from "./AddDepartament";
+import DepartamenAll from "./DepartamenAll";
 import Departament from "./Departament";
 
 
@@ -14,6 +16,7 @@ const Departaments: FC<IDepartaments> = ({departaments}) => {
     return (  
         <Col xs lg="4" className='departaments'>
             <Nav variant="pills" className="flex-column">
+                <DepartamenAll />  
                 {
                     departaments && departaments.map(item => {
                     return <Departament 
@@ -23,9 +26,10 @@ const Departaments: FC<IDepartaments> = ({departaments}) => {
                                 description={item.description}
                             />
                     })
-                }   
+                } 
             </Nav>
-            
+            <AddDepartament />
+
         </Col>
     );
 }

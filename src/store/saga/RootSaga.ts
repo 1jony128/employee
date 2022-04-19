@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-// import LaunchesSaga from "./launchSaga";
+import EmployeeSaga from "./EmployeeSaga";
 
 export default function* rootSaga() {
-    yield all([]);
+    yield all([EmployeeSaga()]);
   }

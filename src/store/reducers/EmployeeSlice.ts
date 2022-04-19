@@ -7,6 +7,10 @@ interface IEmployeeSlice {
     departaments: IDepartment[];
     isLoading: boolean;
     error: string;
+    editingEmployee: string | null;
+    editingDepartament: number | null;
+    selectDepartament: number;
+    showEmployee: boolean
 }
 
 const initialState : IEmployeeSlice = {
@@ -17,33 +21,33 @@ const initialState : IEmployeeSlice = {
         id: "1"
     },
     {
-        firstName: "firstName",
-        lastName: "lastName",
-        departmentId: 1,
+        firstName: "firstName1",
+        lastName: "lastName1",
+        departmentId: 2,
         id: "2"
     },
     {
-        firstName: "firstName",
-        lastName: "lastName",
+        firstName: "firstName2",
+        lastName: "lastName2",
         departmentId: 1,
         id: "3"
     },
     {
-        firstName: "firstName",
-        lastName: "lastName",
-        departmentId: 1,
+        firstName: "firstName3",
+        lastName: "lastName3",
+        departmentId: 2,
         id: "4"
     },
     {
-        firstName: "firstName",
-        lastName: "lastName",
-        departmentId: 1,
+        firstName: "firstName4",
+        lastName: "lastName4",
+        departmentId: 3,
         id: "5"
     },
     {
-        firstName: "firstName",
-        lastName: "lastName",
-        departmentId: 1,
+        firstName: "firstName5",
+        lastName: "lastName5",
+        departmentId: 3,
         id: "6"
     },],
     departaments: [
@@ -54,15 +58,19 @@ const initialState : IEmployeeSlice = {
         {name: 'Administrative', description: 'Administrative description', departmentId: 5},
     ],
     isLoading: false,
-    error: ''
+    error: '',
+    editingEmployee: null,
+    editingDepartament: null,
+    selectDepartament: 0,
+    showEmployee: false
 }
 
 
 export const EmployeeSlice = createSlice({
-    name: "launch",
+    name: "employee",
     initialState,
     reducers: {
-        addEmployee(state){
+        addEmployee(state, action: PayloadAction<IEmpoyee>){
             state.isLoading = true;
         },
         addEmployeeSuccess(state, action: PayloadAction<IEmpoyee>) {
@@ -70,7 +78,7 @@ export const EmployeeSlice = createSlice({
             state.error = '';
             state.employee.push(action.payload);
         },
-        addDepartments(state){
+        addDepartments(state, action: PayloadAction<IDepartment>){
             state.isLoading = true;
         },
         addDepartmentsSuccess(state, action: PayloadAction<IDepartment>) {
@@ -78,13 +86,15 @@ export const EmployeeSlice = createSlice({
             state.error = '';
             state.departaments.push(action.payload);
         },
-        removeEmployee(state, action: PayloadAction<number>){
+        removeEmployee(state, action: PayloadAction<string>){
+            console.log("removeEmployee")
             state.isLoading = true;
         },
         removeEmployeeSuccess(state, action: PayloadAction<string>) {
+            console.log("removeEmployeeSuccess")
             state.isLoading = false;
             state.error = '';
-            state.employee.filter(item => item.id !== action.payload);
+            state.employee = state.employee.filter(item => item.id !== action.payload);
         },
         removeDepartments(state, action: PayloadAction<number>){
             state.isLoading = true;
@@ -92,39 +102,75 @@ export const EmployeeSlice = createSlice({
         removeDepartmentsSuccess(state, action: PayloadAction<number>) {
             state.isLoading = false;
             state.error = '';
-            state.departaments.filter(item => item.departmentId !== action.payload);
+            state.departaments = state.departaments.filter(item => item.departmentId !== action.payload);
+            state.employee = state.employee.filter(item => item.departmentId !== action.payload);
         },
-        updateEmployee(state, action: PayloadAction<number>){
+        editEmployee(state, action: PayloadAction<string>){
+            state.editingEmployee = action.payload
+        },
+        cancelEditEmployee(state){
+            state.editingEmployee = null
+        },
+        updateEmployee(state, action: PayloadAction<IEmpoyee>){
             state.isLoading = true;
         },
         updateEmployeeSuccess(state, action: PayloadAction<IEmpoyee>) {
             state.isLoading = false;
             state.error = '';
-            state.employee.map(item => {
+            state.employee = state.employee.map(item => {
                 if(item.id === action.payload.id){
                     return action.payload
                 } else {
                     return item
                 }
             })
+            state.editingEmployee = null
         },
-        updateDepartments(state, action: PayloadAction<number>){
+        editDepartments(state, action: PayloadAction<number>){
+            state.editingDepartament = action.payload
+        },
+        cancelEditDepartments(state){
+            state.editingDepartament = null
+        },
+        updateDepartments(state, action: PayloadAction<IDepartment>){
             state.isLoading = true;
         },
         updateDepartmentsSuccess(state, action: PayloadAction<IDepartment>) {
             state.isLoading = false;
             state.error = '';
-            state.departaments.map(item => {
+            state.departaments = state.departaments.map(item => {
                 if(item.departmentId === action.payload.departmentId){
                     return action.payload
                 } else {
                     return item
                 }
             })
+            state.editingDepartament = null
         },
-        
+        selectDepartment(state, action: PayloadAction<number>){
+            state.selectDepartament = action.payload
+        }
 
     }
 })
+export const {
+    addEmployee,
+    addEmployeeSuccess,
+    addDepartments,
+    addDepartmentsSuccess,
+    removeEmployee,
+    removeEmployeeSuccess,
+    removeDepartments,
+    removeDepartmentsSuccess,
+    editEmployee,
+    cancelEditEmployee,
+    updateEmployee,
+    updateEmployeeSuccess,
+    editDepartments,
+    cancelEditDepartments,
+    updateDepartments,
+    updateDepartmentsSuccess,
+    selectDepartment
+} = EmployeeSlice.actions
 
 export default EmployeeSlice.reducer;

@@ -22,10 +22,19 @@
   display: none !important;
 }
 
-.employeers li:hover .edit{
+.employeers li:hover .close, .employeers li:hover .edit, .nav-item:hover .close, .nav-item:hover .edit{
   display: inline-block !important;
 }
 
-.employeers li:hover .close{
+.editing .close, .editing .edit{
   display: inline-block !important;
+}
+
+.add-form{
+  padding: 15px;
+  padding-left: 10px !important;
+}
+
+.select-wrapper{
+  max-width: 300px;
 }
