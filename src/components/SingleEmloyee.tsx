@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button, Card, CloseButton, Col, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, Card, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { IEmpoyee } from "../models/IEmpoyee";
 import { showEmployee } from "../store/reducers/EmployeeSlice";
