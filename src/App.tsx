@@ -1,9 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAppSelector } from './hooks/redux';
-import { Col, Container, Row, ThemeProvider } from 'react-bootstrap';
+import { Container, Row, ThemeProvider } from 'react-bootstrap';
 import Departaments from './components/Departaments';
-import { BrowserRouter, Route } from 'react-router-dom';
 import Employeers from './components/Employeers';
 import SingleEmployee from './components/SingleEmloyee';
 

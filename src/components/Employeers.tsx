@@ -1,8 +1,7 @@
-import { FC } from "react";
-import { Col, ListGroup, Nav } from "react-bootstrap";
+import { FC, useEffect, useState } from "react";
+import { Col, ListGroup } from "react-bootstrap";
 import { IEmpoyee } from "../models/IEmpoyee";
 import AddEmployee from "./AddEmployee";
-import Departament from "./Departament";
 import Employee from "./Employee";
 
 
@@ -13,7 +12,13 @@ interface IEmployeers {
 
 const Employeers: FC<IEmployeers> = ({employeers, filter}) => {
 
-    // console.log(employeers)
+    const [arrFilter, setArrFilter] = useState<IEmpoyee[]>()
+
+    useEffect(()=>{
+        const filterArray = JSON.parse(JSON.stringify(employeers))
+        setArrFilter(filterArray.filter((item:IEmpoyee) => filter === item.departmentId))
+    }, [filter])
+
     if(filter === 0){
         return (  
             <Col className='employeers'>
@@ -33,10 +38,8 @@ const Employeers: FC<IEmployeers> = ({employeers, filter}) => {
         <Col className='employeers'>
             <ListGroup as="ol" numbered>
                 {
-                    employeers && employeers.map(item => {
-                        if(filter === item.departmentId){
-                            return <Employee key={item.id} employee={item}/>
-                        }
+                    arrFilter && arrFilter.map(item => {
+                        return <Employee key={item.id} employee={item}/>
                     })
                 }   
             </ListGroup>
